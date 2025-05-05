@@ -2,11 +2,16 @@
 require_once 'config/database.php';
 require_once 'includes/functions.php';
 
-// Get all posts
+// 检查是否已登录
+$isLoggedIn = isLoggedIn();
+$currentUsername = getCurrentUsername();
+
+// 获取所有帖子
 $posts = getPosts();
 
-// Get error message if exists
+// 获取错误消息（如果存在）
 $error = isset($_GET['error']) ? $_GET['error'] : '';
+$success = isset($_GET['success']) ? $_GET['success'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +26,15 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
     <div class="container">
         <header>
             <h1>匿名墙</h1>
-            <p>在这里分享你的想法，无需注册</p>
+            <p>分享你的想法，匿名显示</p>
+            
+            <div class="auth-status">
+                <?php if ($isLoggedIn): ?>
+                    <p>欢迎, <?php echo htmlspecialchars($currentUsername); ?>! <a href="logout.php">注销</a></p>
+                <?php else: ?>
+                    <p><a href="login.php">登录</a> 或 <a href="register.php">注册</a> 以发布内容</p>
+                <?php endif; ?>
+            </div>
         </header>
 
         <?php if (!empty($error)): ?>
@@ -29,21 +42,34 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
                 <?php echo htmlspecialchars($error); ?>
             </div>
         <?php endif; ?>
+        
+        <?php if (!empty($success)): ?>
+            <div class="success-message">
+                <?php echo htmlspecialchars($success); ?>
+            </div>
+        <?php endif; ?>
 
-        <section class="post-form">
-            <h2>发布新内容</h2>
-            <form action="post.php" method="POST">
-                <div class="form-group">
-                    <label for="nickname">昵称 (可选):</label>
-                    <input type="text" id="nickname" name="nickname" placeholder="匿名">
-                </div>
-                <div class="form-group">
-                    <label for="content">内容:</label>
-                    <textarea id="content" name="content" required></textarea>
-                </div>
-                <button type="submit">发布</button>
-            </form>
-        </section>
+        <?php if ($isLoggedIn): ?>
+            <section class="post-form">
+                <h2>发布新内容</h2>
+                <form action="post.php" method="POST">
+                    <div class="form-group">
+                        <label for="nickname">显示名称 (可选):</label>
+                        <input type="text" id="nickname" name="nickname" placeholder="匿名">
+                        <small>留空将显示为"匿名"</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">内容:</label>
+                        <textarea id="content" name="content" required></textarea>
+                    </div>
+                    <button type="submit">发布</button>
+                </form>
+            </section>
+        <?php else: ?>
+            <div class="login-prompt">
+                <p>请<a href="login.php">登录</a>后发布内容</p>
+            </div>
+        <?php endif; ?>
 
         <section class="posts">
             <h2>最新内容</h2>

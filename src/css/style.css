@@ -54,6 +54,8 @@ label {
 }
 
 input[type="text"],
+input[type="email"],
+input[type="password"],
 textarea {
     width: 100%;
     padding: 10px;
@@ -126,6 +128,15 @@ button:hover {
     text-align: center;
 }
 
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
 footer {
     margin-top: 40px;
     text-align: center;
@@ -141,4 +152,45 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
+}
+
+/* 新增样式 */
+.auth-status {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.auth-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+}
+
+.auth-links a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+.login-prompt {
+    background-color: #e8f4f8;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+small {
+    display: block;
+    margin-top: 5px;
+    color: #7f8c8d;
+    font-size: 0.8rem;
 } 
