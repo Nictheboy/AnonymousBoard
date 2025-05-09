@@ -91,7 +91,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
         </section>
         
         <footer>
-            <p><a href="init_db.php">初始化数据库</a></p>
+            <!-- <p><a href="init_db.php">初始化数据库</a></p> -->
         </footer>
     </div>
 </body>

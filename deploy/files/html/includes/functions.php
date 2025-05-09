@@ -206,6 +206,6 @@ function addPost($content, $userId, $nickname = null) {
 function cleanInput($data) {
     $data = trim($data);
     $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+    // $data = htmlspecialchars($data); // Removed for output-only escaping
     return $data;
 } 

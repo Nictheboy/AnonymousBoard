@@ -1,13 +1,14 @@
 <?php
 // Database connection settings
-$host = 'mysql';  // Docker service name for MySQL
-$dbname = 'anonymous_board';
-$username = 'anon_user';
-$password = 'anon_password';
+// $host = 'mysql';  // Docker service name for MySQL - Replaced by socket connection
+$db_socket = '/run/mysqld/mysqld.sock';
+$dbname = 'kasilab';
+$username = 'root';
+$password = 'root';
 
 // Attempt database connection
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo = new PDO("mysql:unix_socket=$db_socket;dbname=$dbname", $username, $password);
     // Set PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // Set default fetch mode to associative array
